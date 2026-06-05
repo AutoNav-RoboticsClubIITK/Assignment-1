@@ -1,4 +1,4 @@
-# AutoNav Robot ROS 1 Assignment
+# AutoNav Robot ROS 2 Assignment
 > Topic: ROS 2 Basics — Nodes, Topics, Publishers & Subscribers
 > Estimated Time: 2–3 hours 
 
