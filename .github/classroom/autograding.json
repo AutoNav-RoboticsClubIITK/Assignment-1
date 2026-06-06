@@ -1,0 +1,74 @@
+{
+  "tests": [
+    {
+      "name": "Package Structure",
+      "setup": "",
+      "run": "test -f autonav_beginner/src/lidar_publisher.cpp && test -f autonav_beginner/src/obstacle_detector.cpp && test -f autonav_beginner/src/drive_decider.cpp && test -f autonav_beginner/CMakeLists.txt && test -f autonav_beginner/package.xml",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "LiDAR Publisher — Content Validation",
+      "setup": "",
+      "run": "FILE=autonav_beginner/src/lidar_publisher.cpp && grep -qE '\"lidar_publisher\"' $FILE && grep -qE '/lidar/ranges' $FILE && grep -qiE 'std_msgs.*string|std_msgs/.*string' $FILE && grep -qE '(create_wall_timer|create_timer)' $FILE",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "Obstacle Detector — Content Validation",
+      "setup": "",
+      "run": "FILE=autonav_beginner/src/obstacle_detector.cpp && grep -qE '\"obstacle_detector\"' $FILE && grep -qE '/lidar/ranges' $FILE && grep -qE '/obstacle/status' $FILE && grep -q 'CLEAR' $FILE && grep -q 'WARNING' $FILE && grep -q 'DANGER' $FILE && grep -qE '(0\\.5|1\\.5)' $FILE",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "Drive Decider — Content Validation",
+      "setup": "",
+      "run": "FILE=autonav_beginner/src/drive_decider.cpp && grep -qE '\"drive_decider\"' $FILE && grep -qE '/obstacle/status' $FILE && grep -qE '/robot/action' $FILE && grep -q 'MOVE FORWARD' $FILE && grep -q 'SLOW DOWN' $FILE && grep -q 'STOP' $FILE",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "CMakeLists.txt — Executables & Dependencies",
+      "setup": "",
+      "run": "FILE=autonav_beginner/CMakeLists.txt && grep -q 'lidar_publisher' $FILE && grep -q 'obstacle_detector' $FILE && grep -q 'drive_decider' $FILE && grep -q 'rclcpp' $FILE && grep -q 'std_msgs' $FILE",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "Colcon Build — Compilation",
+      "setup": ". /opt/ros/humble/setup.sh && mkdir -p /tmp/ws/src && cp -r autonav_beginner /tmp/ws/src/",
+      "run": ". /opt/ros/humble/setup.sh && cd /tmp/ws && colcon build --packages-select autonav_beginner",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 30
+    },
+    {
+      "name": "Screenshots Submitted",
+      "setup": "",
+      "run": "find . -maxdepth 2 -type f \\( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \\) | grep -q '.'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    }
+  ]
+}
